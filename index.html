@@ -6,23 +6,35 @@
 </head>
 <body>
 <script>
-  const browserInfo = navigator.userAgent;
-  const timestamp = new Date().toISOString();
+function getBrowser() {
+  const ua = navigator.userAgent;
+  if (ua.includes("Edg")) return "Edge";
+  if (ua.includes("Chrome")) return "Chrome";
+  if (ua.includes("Firefox")) return "Firefox";
+  if (ua.includes("Safari") && !ua.includes("Chrome")) return "Safari";
+  return "Unknown";
+}
 
-  // Google Form POST URL
-  const formURL = "https://docs.google.com/forms/d/e/1FAIpQLScmxp_UweHyJDH1qt3SXW-Ey2zIIsVcl0vcXH35XLI8YaKIPw/viewform";
+const browser = getBrowser();
+const timestamp = new Date().toISOString();
 
-  const formData = new FormData();
-  formData.append("entry.BROWSER_ID", browserInfo);
-  formData.append("entry.TIMESTAMP_ID", timestamp);
+const formURL = "https://docs.google.com/forms/d/e/1FAIpQLScmxp_UweHyJDH1qt3SXW-Ey2zIIsVcl0vcXH35XLI8YaKIPw/formResponse";
 
-  fetch(formURL, {
-    method: "POST",
-    mode: "no-cors",
-    body: formData
-  }).finally(() => {
-    window.location.href = "https://github.com/";
-  });
+const formData = new FormData();
+formData.append("entry.1185056556", browser);
+formData.append("entry.1409883427", timestamp);
+
+fetch(formURL, {
+  method: "POST",
+  mode: "no-cors",
+  body: formData
+}).finally(() => {
+  window.location.href = "https://github.com/";
+});
 </script>
+
+<noscript>
+  <meta http-equiv="refresh" content="0; url=https://github.com/">
+</noscript>
 </body>
 </html>
