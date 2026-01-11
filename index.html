@@ -1,9 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Hello Website</title>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
 </head>
 <body>
-    <h1>Hello</h1>
+<script>
+  const browserInfo = navigator.userAgent;
+  const timestamp = new Date().toISOString();
+
+  // Google Form POST URL
+  const formURL = "https://docs.google.com/forms/d/e/1FAIpQLScmxp_UweHyJDH1qt3SXW-Ey2zIIsVcl0vcXH35XLI8YaKIPw/viewform";
+
+  const formData = new FormData();
+  formData.append("entry.BROWSER_ID", browserInfo);
+  formData.append("entry.TIMESTAMP_ID", timestamp);
+
+  fetch(formURL, {
+    method: "POST",
+    mode: "no-cors",
+    body: formData
+  }).finally(() => {
+    window.location.href = "https://github.com/";
+  });
+</script>
 </body>
 </html>
